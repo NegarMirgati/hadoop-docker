@@ -33,3 +33,6 @@ docker run -it cnp2
 
 
 # run map-red
+
+#To see output run this command :
+hdfs dfs -ls /user/sina/output
