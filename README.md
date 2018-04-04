@@ -35,12 +35,13 @@ docker run -it cnp2
 # run map-red
 
 #To see output run this command :
+```
 hdfs dfs -ls /user/sina/output
+```
 
 #To see the contents of output of WordCount.java run this command :
 ```
 dfs -cat /user/sina/output/part-r-000*
-
 ```
 
 
