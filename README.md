@@ -28,6 +28,12 @@ just run this:
 docker run -it cnp2 
 ```
 
+# python cluster
+If error "RTNETLINK answers: File exists" occured run :
+```
+sudo mn -c 
+```
+
 # multi-node
 ```
 docker run --net hadoop-cluster --ip 172.20.0.11 -it -e HADOOP_HOSTS="172.20.0.10 master, 172.20.0.11 slave1, 172.20.0.12 slave2, 172.20.0.13 slave3" cnp2
