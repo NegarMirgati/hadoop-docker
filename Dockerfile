@@ -27,7 +27,7 @@ RUN apt-get update && \
     echo "# Some convenient aliases and functions for running Hadoop-related commands\nunalias fs &> /dev/null\nalias fs=\"hadoop fs\"\nunalias hls &> /dev/null\nalias hls=\"fs -ls\"" >> ~/.bashrc
 
 RUN apt-get update &&\
-	apt-get install -y net-tools iproute2 iputils-ping 
+    apt-get install -y net-tools iproute2 iputils-ping 
 
 # set up environment variables and conffig files
 ARG RECONFIG=1
@@ -35,13 +35,11 @@ ENV HADOOP_HOME=/usr/local/hadoop \
     JAVA_HOME=/usr/lib/jvm/java-8-oracle \
     HADOOP_CLASSPATH=/usr/lib/jvm/java-8-oracle/lib/tools.jar \
     PATH="${PATH}:/usr/local/hadoop/bin"
-COPY start.sh hadoop-env.sh mapred-site.xml mapred-site.multi-node.xml yarn-site.xml yarn-site.multi-node.xml hdfs-site.xml hdfs-site.multi-node.xml core-site.xml core-site.multi-node.xml $HADOOP_HOME/etc/hadoop/
- 
+COPY start.sh yarn-site.xml hadoop-env.sh hdfs-site.xml mapred-site.xml core-site.xml yarn-site.multi-node.xml core-site.multi-node.xml hdfs-site.multi-node.xml $HADOOP_HOME/etc/hadoop/
 
 RUN mkdir -p /app/hadoop/tmp && \
     hdfs namenode -format && \
     chmod +x $HADOOP_HOME/etc/hadoop/start.sh
 
 ADD WordCount.java mahdiz.big  HdfsReader.java HdfsWriter.java ./
-
 ENTRYPOINT $HADOOP_HOME/etc/hadoop/start.sh && /bin/bash
