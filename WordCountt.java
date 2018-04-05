@@ -11,7 +11,10 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+
 public class WordCountt {
+
+
 
   public static class TokenizerMapper
        extends Mapper<Object, Text, Text, IntWritable>{
@@ -26,6 +29,8 @@ public class WordCountt {
         word.set(itr.nextToken());
         
         String value_s = word.toString();
+        if(value_s.matches("^.*[^a-zA-Z0-9 ].*$"))
+           continue;
         String lower_val = value_s.toLowerCase();
         Text final_text = new Text(lower_val);
         context.write(final_text, one);
