@@ -8,16 +8,56 @@ import java.io.*;
 import java.net.*;
 import java.util.Objects;
 
-/**
- *
- * @author Lenovo-pc
- */
+
+/* from Hdfs wrtier */
+import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.util.Tool;
+
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IOUtils;
+import org.apache.hadoop.util.ToolRunner;
+/**/
+
+
 public class BigData {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    static class HdfsWriter extends Configured implements Tool {
+
+    public static final String FS_PARAM_NAME = "fs.defaultFS";
+
+    public int run(String[] args) throws Exception {
+
+        if (args.length < 2) {
+            System.err.println("HdfsWriter [local input path] [hdfs output path]");
+            return 1;
+        }
+
+        String localInputPath = args[0];
+        Path outputPath = new Path(args[1]);
+
+        Configuration conf = getConf();
+        System.out.println("configured filesystem = " + conf.get(FS_PARAM_NAME));
+        FileSystem fs = FileSystem.get(conf);
+        if (fs.exists(outputPath)) {
+            System.err.println("output path exists");
+            return 1;
+        }
+        OutputStream os = fs.create(outputPath);
+        InputStream is = new BufferedInputStream(new FileInputStream(localInputPath));
+        IOUtils.copyBytes(is, os, conf);
+        return 0;
+    }
+}
+    public static void main(String[] args) throws Exception {
         // TODO code application logic here
       URL u;
       InputStream is = null;
@@ -33,7 +73,7 @@ public class BigData {
             File fileout =new File("wikipedia.data");
 	    String line;
 	    while ((line = bufferedReader.readLine()) != null  && fileout.length() <= 11 * 1000000 ) {
-		 System.out.println(line);
+		 //System.out.println(line);
                  try {
 
                    u = new URL("https://en.wikipedia.org/wiki/"+line+"?action=raw");
@@ -43,7 +83,7 @@ public class BigData {
                    while ((s = dis.readLine()) != null ) {
                      if ( Objects.equals("==References==", s ) == true || Objects.equals("== References ==", s ) == true )
                      {
-                        System.out.println("byyyyyyyyyyyyeeeeeeeeeeeeeee");
+                        //System.out.println("byyyyyyyyyyyyeeeeeeeeeeeeeee");
                         break;
                      }
                      writer.append(s);
@@ -111,12 +151,17 @@ public class BigData {
     	    instream.close();
     	    outstream.close();
 
-    	    System.out.println("File copied successfully!!");
+    	  System.out.println("File copied successfully!!");
+          String[] my_args = {"raw.data", "/user/training/raw_copyyy.data"}; 
+          HdfsWriter hdfs_obj = new HdfsWriter();
+          int returnCode = ToolRunner.run(hdfs_obj, my_args);
+          System.exit(returnCode);
  
     	}catch(IOException ioe){
     		ioe.printStackTrace();
     	 }
-
+ 
+         
     }
-    
+     
 }
