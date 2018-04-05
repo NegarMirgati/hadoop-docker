@@ -53,3 +53,20 @@ hdfs dfs -cat /user/sina/output/part-r-000*
 ```
 
 
+# run BigData.java 
+
+```
+hadoop com.sun.tools.javac.Main BigData.java
+jar cf bd.jar BigData*.class
+hadoop jar bd.jar BigData
+```
+
+# copy raw.data to hadoop 
+
+```
+Compile: hadoop com.sun.tools.javac.Main HdfsWriter.java
+Create Jar file: jar cf HdfsWriter.jar HdfsWriter*.class
+Run: hadoop jar HdfsWriter.jar HdfsWriter raw.data /user/training/raw_copy.data
+```
+
+
