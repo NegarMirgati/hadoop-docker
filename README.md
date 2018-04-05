@@ -58,7 +58,7 @@ hdfs dfs -cat /user/sina/output/part-r-000*
 ```
 hadoop com.sun.tools.javac.Main BigData.java
 jar cf bd.jar BigData*.class
-hadop jar bd.jar BigData
+hadoop jar bd.jar BigData
 ```
 
 # copy raw.data to hadoop 
