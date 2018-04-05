@@ -53,3 +53,12 @@ hdfs dfs -cat /user/sina/output/part-r-000*
 ```
 
 
+# run BigData.java 
+
+```
+hadoop com.sun.tools.javac.Main BigData.java
+jar cf bd.jar BigData*.class
+hadop jar bd.jar BigData
+```
+
+
