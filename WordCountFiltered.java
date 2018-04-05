@@ -1,5 +1,9 @@
 import java.io.IOException;
 import java.util.StringTokenizer;
+import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -20,14 +24,14 @@ public class WordCountFiltered {
     private Text word = new Text();
     private HashSet<String> stopWords = new HashSet<String>();  
 
-    @override
-    public void setup() {
+    @Override
+    public void setup(Context context) { 
       try {
       File file = new File("stop-words.keys");
       FileReader fileReader = new FileReader(file);
       BufferedReader bufferedReader = new BufferedReader(fileReader);
       String line;
-      while ((line = bufferedReader.readLine()) != null \ ) {
+      while ((line = bufferedReader.readLine()) != null ) {
       stopWords.add("line"); 
       } 
 
@@ -44,7 +48,7 @@ public class WordCountFiltered {
       StringTokenizer itr = new StringTokenizer(value.toString());
       while (itr.hasMoreTokens()) {
         word.set(itr.nextToken());
-        if ( stopWords.contains(word) == FALSE ){
+        if ( stopWords.contains(word) == false ){
           context.write(word, one);
         }
         
@@ -71,7 +75,7 @@ public class WordCountFiltered {
   public static void main(String[] args) throws Exception {
     Configuration conf = new Configuration();
     Job job = Job.getInstance(conf, "word count");
-    job.setJarByClass(WordCount.class);
+    job.setJarByClass(WordCountFiltered.class);
     job.setMapperClass(TokenizerMapper.class);
     job.setCombinerClass(IntSumReducer.class);
     job.setReducerClass(IntSumReducer.class);
