@@ -1,5 +1,9 @@
 import java.io.IOException;
 import java.util.StringTokenizer;
+import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -12,15 +16,34 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
+
 public class WordCountt {
-
-
 
   public static class TokenizerMapper
        extends Mapper<Object, Text, Text, IntWritable>{
 
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
+    private HashSet<String> stopWords = new HashSet<String>();
+
+    @Override
+    public void setup(Context context) { 
+      try {
+      File file = new File("stop-words.keys");
+      FileReader fileReader = new FileReader(file);
+      BufferedReader bufferedReader = new BufferedReader(fileReader);
+      String line;
+      while ((line = bufferedReader.readLine()) != null ) {
+      stopWords.add("line"); 
+      } 
+
+      fileReader.close();
+      } 
+      catch (IOException e) {
+      e.printStackTrace();
+     }
+}
+  
 
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
@@ -29,7 +52,7 @@ public class WordCountt {
         word.set(itr.nextToken());
         
         String value_s = word.toString();
-        if(value_s.matches("^.*[^a-zA-Z ].*$"))
+        if(value_s.matches("^.*[^a-zA-Z ].*$") || stopWords.contains(word))
            continue;
         String lower_val = value_s.toLowerCase();
         Text final_text = new Text(lower_val);
@@ -37,6 +60,8 @@ public class WordCountt {
       }
     }
   }
+
+
 
   public static class IntSumReducer
        extends Reducer<Text,IntWritable,Text,IntWritable> {
