@@ -29,7 +29,7 @@ public class WordCountt {
         word.set(itr.nextToken());
         
         String value_s = word.toString();
-        if(value_s.matches("^.*[^a-zA-Z0-9 ].*$"))
+        if(value_s.matches("^.*[^a-zA-Z ].*$"))
            continue;
         String lower_val = value_s.toLowerCase();
         Text final_text = new Text(lower_val);
