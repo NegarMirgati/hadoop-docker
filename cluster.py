@@ -70,6 +70,12 @@ for host in net.hosts:
 # run '/$HADOOP_HOME/etc/hadoop/start.sh > result' on each host to start hadoop
 # on it.
 
+d1.cmd('export HADOOP_HOSTS="10.0.0.1 master, 10.0.0.2 slave1, 10.0.0.3 slave2, 10.0.0.4 slave3"')
+d2.cmd('export HADOOP_HOSTS="10.0.0.1 master, 10.0.0.2 slave1, 10.0.0.3 slave2, 10.0.0.4 slave3"')
+d3.cmd('export HADOOP_HOSTS="10.0.0.1 master, 10.0.0.2 slave1, 10.0.0.3 slave2, 10.0.0.4 slave3"')
+d4.cmd('export HADOOP_HOSTS="10.0.0.1 master, 10.0.0.2 slave1, 10.0.0.3 slave2, 10.0.0.4 slave3"')
+d1.cmd('export MY_ROLE="master"')
+#d1.cmd('/$HADOOP_HOME/etc/hadoop/start.sh > result')
 
 info('*** Running CLI\n')
 CLI(net)
