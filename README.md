@@ -66,7 +66,7 @@ hadoop jar bd.jar BigData
 ```
 Compile: hadoop com.sun.tools.javac.Main HdfsWriter.java
 Create Jar file: jar cf HdfsWriter.jar HdfsWriter*.class
-Run: hadoop jar HdfsWriter.jar HdfsWriter raw.data /user/training/raw_copy.data
+Run: hadoop jar HdfsWriter.jar HdfsWriter raw.data /user/training/raw_copyyy.data
 ```
 
 
