@@ -11,24 +11,43 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class WordCount {
+public class WordCountFiltered {
 
   public static class TokenizerMapper
        extends Mapper<Object, Text, Text, IntWritable>{
 
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
+    private HashSet<String> stopWords = new HashSet<String>();  
+
+    @override
+    public void setup() {
+      try {
+      File file = new File("stop-words.keys");
+      FileReader fileReader = new FileReader(file);
+      BufferedReader bufferedReader = new BufferedReader(fileReader);
+      String line;
+      while ((line = bufferedReader.readLine()) != null \ ) {
+      stopWords.add("line"); 
+      } 
+
+      fileReader.close();
+      } 
+      catch (IOException e) {
+      e.printStackTrace();
+     }
+
+    }
 
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
       StringTokenizer itr = new StringTokenizer(value.toString());
       while (itr.hasMoreTokens()) {
         word.set(itr.nextToken());
+        if ( stopWords.contains(word) == FALSE ){
+          context.write(word, one);
+        }
         
-        String value_s = word.toString();
-        String lower_val = value_s.toLowerCase();
-        Text final_text = new Text(lower_val);
-        context.write(final_text, one);
       }
     }
   }

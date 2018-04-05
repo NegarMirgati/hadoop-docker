@@ -34,6 +34,12 @@ If error "RTNETLINK answers: File exists" occured run :
 sudo mn -c 
 ```
 
+To see results on each host run :
+```
+xterm host_name
+$HADOOP_HOME/etc/hadoop/start.sh > result
+```
+
 # multi-node
 ```
 docker run --net hadoop-cluster --ip 172.20.0.11 -it -e HADOOP_HOSTS="172.20.0.10 master, 172.20.0.11 slave1, 172.20.0.12 slave2, 172.20.0.13 slave3" cnp2
