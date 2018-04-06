@@ -2,11 +2,15 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.*;
 import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.FileReader;
 import java.io.File;
+import java.net.URI;
+
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -17,46 +21,51 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
 
+
 public class WordCountt {
 
   public static class TokenizerMapper
        extends Mapper<Object, Text, Text, IntWritable>{
 
     private final static IntWritable one = new IntWritable(1);
+    //public static final Log log = LogFactory.getLog(TokenizerMapper.class);
     private Text word = new Text();
     private HashSet<String> stopWords = new HashSet<String>();
 
     @Override
-    public void setup(Context context) { 
-      try {
-      File file = new File("stop-words.keys");
-      FileReader fileReader = new FileReader(file);
-      BufferedReader bufferedReader = new BufferedReader(fileReader);
+    public void setup(Context context) throws IOException, InterruptedException{ 
+      Path pt = new Path("/user/sina/extra/stop-words_copy.keys");
+      FileSystem fs = FileSystem.get(new Configuration());
+      /*FileReader fileReader = new FileReader("hdfs:/user/sina/extra/stop-words_copy.keys");*/
+      BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fs.open(pt)));
       String line;
       while ((line = bufferedReader.readLine()) != null ) {
       stopWords.add("line"); 
+      System.out.println(line);
       } 
 
-      fileReader.close();
-      } 
-      catch (IOException e) {
-      e.printStackTrace();
-     }
+      /*fileReader.close();*/
+      
 }
   
-
+    @Override
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
       StringTokenizer itr = new StringTokenizer(value.toString());
+      
       while (itr.hasMoreTokens()) {
         word.set(itr.nextToken());
         
         String value_s = word.toString();
-        if(value_s.matches("^.*[^a-zA-Z ].*$") || stopWords.contains(word))
+        if(value_s.matches("^.*[^a-zA-Z ].*$"))
            continue;
+
         String lower_val = value_s.toLowerCase();
         Text final_text = new Text(lower_val);
-        context.write(final_text, one);
+        if(!stopWords.contains(lower_val)){
+            context.write(final_text, one);
+            System.out.println("ADDDDDDDDDDDDDDDDDDDDDDDD");
+          }
       }
     }
   }
@@ -82,6 +91,7 @@ public class WordCountt {
   public static void main(String[] args) throws Exception {
     Configuration conf = new Configuration();
     Job job = Job.getInstance(conf, "word count");
+    /*job.addCacheFile(new Path("/user/sina/extra/stop-words_copy.keys").toUri());*/
     job.setJarByClass(WordCountt.class);
     job.setMapperClass(TokenizerMapper.class);
     job.setCombinerClass(IntSumReducer.class);
