@@ -40,7 +40,7 @@ public class WordCountt {
       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fs.open(pt)));
       String line;
       while ((line = bufferedReader.readLine()) != null ) {
-      stopWords.add("line"); 
+      stopWords.add(line); 
       System.out.println(line);
       } 
 
