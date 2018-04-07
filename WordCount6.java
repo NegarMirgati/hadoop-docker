@@ -97,11 +97,11 @@ public class WordCount6 {
       result.set(sum);
       //context.write(key, result);
       for( int i = 0 ; i < alValue.size() ; i++) { // 0 the biggest
-       if ( result.get() >= alValue.get(i).get()  ) {
+       if ( result.get() > alValue.get(i).get()  ) {
           alValue.add(i,result);
           alValue.remove(alValue.size()-1);
           alKey.add(i,key);
-          alKey.remove(alValue.size()-1);
+          alKey.remove(alKey.size()-1);
           break;
         }
       }
