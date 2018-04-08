@@ -1,0 +1,24 @@
+2018-04-08 17:24:18,911 INFO [main] org.apache.hadoop.metrics2.impl.MetricsConfig: loaded properties from hadoop-metrics2.properties
+2018-04-08 17:24:18,993 INFO [main] org.apache.hadoop.metrics2.impl.MetricsSystemImpl: Scheduled snapshot period at 10 second(s).
+2018-04-08 17:24:18,994 INFO [main] org.apache.hadoop.metrics2.impl.MetricsSystemImpl: MapTask metrics system started
+2018-04-08 17:24:19,019 INFO [main] org.apache.hadoop.mapred.YarnChild: Executing with tokens:
+2018-04-08 17:24:19,019 INFO [main] org.apache.hadoop.mapred.YarnChild: Kind: mapreduce.job, Service: job_1523100158662_0017, Ident: (org.apache.hadoop.mapreduce.security.token.JobTokenIdentifier@4b2bac3f)
+2018-04-08 17:24:19,135 INFO [main] org.apache.hadoop.mapred.YarnChild: Sleeping for 0ms before retrying again. Got null now.
+2018-04-08 17:24:19,472 INFO [main] org.apache.hadoop.mapred.YarnChild: mapreduce.cluster.local.dir for child: /app/hadoop/tmp/nm-local-dir/usercache/root/appcache/application_1523100158662_0017
+2018-04-08 17:24:19,750 INFO [main] org.apache.hadoop.conf.Configuration.deprecation: session.id is deprecated. Instead, use dfs.metrics.session-id
+2018-04-08 17:24:20,368 INFO [main] org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter: File Output Committer Algorithm version is 1
+2018-04-08 17:24:20,385 INFO [main] org.apache.hadoop.mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2018-04-08 17:24:20,572 INFO [main] org.apache.hadoop.mapred.MapTask: Processing split: hdfs://localhost:54310/user/sina/data/mahdiz.big:0+102180
+2018-04-08 17:24:20,679 INFO [main] org.apache.hadoop.mapred.MapTask: (EQUATOR) 0 kvi 26214396(104857584)
+2018-04-08 17:24:20,679 INFO [main] org.apache.hadoop.mapred.MapTask: mapreduce.task.io.sort.mb: 100
+2018-04-08 17:24:20,679 INFO [main] org.apache.hadoop.mapred.MapTask: soft limit at 83886080
+2018-04-08 17:24:20,679 INFO [main] org.apache.hadoop.mapred.MapTask: bufstart = 0; bufvoid = 104857600
+2018-04-08 17:24:20,679 INFO [main] org.apache.hadoop.mapred.MapTask: kvstart = 26214396; length = 6553600
+2018-04-08 17:24:20,688 INFO [main] org.apache.hadoop.mapred.MapTask: Map output collector class = org.apache.hadoop.mapred.MapTask$MapOutputBuffer
+2018-04-08 17:24:21,180 INFO [main] org.apache.hadoop.mapred.MapTask: Starting flush of map output
+2018-04-08 17:24:21,180 INFO [main] org.apache.hadoop.mapred.MapTask: Spilling map output
+2018-04-08 17:24:21,180 INFO [main] org.apache.hadoop.mapred.MapTask: bufstart = 0; bufend = 116062; bufvoid = 104857600
+2018-04-08 17:24:21,180 INFO [main] org.apache.hadoop.mapred.MapTask: kvstart = 26214396(104857584); kvend = 26172092(104688368); length = 42305/6553600
+2018-04-08 17:24:21,282 INFO [main] org.apache.hadoop.mapred.MapTask: Finished spill 0
+2018-04-08 17:24:21,294 INFO [main] org.apache.hadoop.mapred.Task: Task:attempt_1523100158662_0017_m_000000_0 is done. And is in the process of committing
+2018-04-08 17:24:21,362 INFO [main] org.apache.hadoop.mapred.Task: Task 'attempt_1523100158662_0017_m_000000_0' done.
