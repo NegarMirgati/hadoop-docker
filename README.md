@@ -82,3 +82,20 @@ Run: hadoop jar HdfsWriter.jar HdfsWriter raw.data /user/training/raw_copyyy.dat
 ```
 
 
+
+# Log Files
+It contains several different types of lines:
+
+    Lines starting with "Job", that indicate that refer to the job, listing information about the job (priority, submit time, configuration, number of map tasks, number of reduce tasks, etc...
+
+
+    Lines starting with "Task" referring to the creation or completion of Map or Reduce tasks, indicating which host they start on, and which split they work on. On completion, all the counters associated with the task are listed.
+
+
+
+    Lines starting with "MapAttempt", reporting mostly status update, except if they contain the keywords SUCCESS and/or FINISH_TIME, indicating that the task has completed. The final time when the task finished is included in this line.
+
+    Lines starting with "ReduceAttempt", similar to the MapAttempt tasks, report on the intermediary status of the tasks, and when the keyword SUCCESS is included, the finish time of the sort and shuffle phases will also be included.
+
+
+
